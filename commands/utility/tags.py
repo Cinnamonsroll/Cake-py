@@ -114,6 +114,6 @@ class Tags(commands.Cog):
             return await ctx.send("Tag doesn't exist")
         foundTag = list(
             filter(lambda x: x["name"] == name or name in x["aliases"], guildData["tags"]))[0]
-        return await ctx.send(f"Name: {foundTag['name']}\nContent: {foundTag['content']}\nAliases: {'None' if len(foundTag['aliases']) <= 0 else ', '.join(foundTag['aliases'])}\nOwner: {self.client.get_user(foundTag['owner'])}")
+        return await ctx.send(f"Name: {foundTag['name']}\nContent: {foundTag['content']}\nAliases: {'None' if len(foundTag['aliases']) <= 0 else ', '.join(foundTag['aliases'])}\nOwner: {await self.client.fetch_user(int(foundTag['owner']))}")
 def setup(client):
     client.add_cog(Tags(client))
