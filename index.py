@@ -8,12 +8,13 @@ import pymongo
 f = open("config.json")
 data = json.load(f)
 mongoConnection = pymongo.MongoClient(data["mongo"])
-botData = mongoConnection["cakepy"]
+
 intents = discord.Intents.default()
 client = Bot(command_prefix=prefixes, intents=intents, case_insensitive = True)
 client.owner_ids = data["owners"]
 client.remove_command("help")
-client._guilds = botData["guilds"]
+client._botData = mongoConnection["cakepy"]
+client._guilds = client._botData["guilds"]
 client.cache = {}
 client.pagination = pagination
 client.color = int(hex(int("FFFEFB", 16)), 0)
