@@ -4,7 +4,8 @@ from discord_components import Button, ButtonStyle
 class TicTacToe(commands.Cog):
     def __init__(self, client,):
         self.client = client
-    @commands.command(name="tictactoe", aliases=["ttt"], description="Play tictactoe against another user", category="games",)
+    @commands.command(name="tictactoe", aliases=["ttt"], description="Play tictactoe against another user",)
+    @commands.guild_only()
     async def ttt(self, ctx, member: discord.Member):
         if member == None or member.bot or member == ctx.message.author: return await ctx.send("Please include a valid user")
         board = [

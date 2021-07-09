@@ -10,7 +10,8 @@ def createSizes(member, extension):
 class Avatar(commands.Cog):
     def __init__(self, client,):
         self.client = client
-    @commands.command(name="avatar", aliases=["pfp"], description="Get a user's avatar", category="general",)
+    @commands.command(name="avatar", aliases=["pfp"], description="Get a user's avatar")
+    @commands.guild_only()
     async def avatar(self, ctx, member: discord.Member = None):
         if member == None:
             member = ctx.message.author

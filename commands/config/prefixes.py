@@ -4,6 +4,7 @@ class Prefixes(commands.Cog):
     def __init__(self, client):
         self.client = client
     @commands.group(name="prefixes", description = "Add, remove and view prefixes", aliases=["prefix"])
+    @commands.guild_only()
     async def prefixes(self, ctx):
         if ctx.invoked_subcommand is None:
             await ctx.send("Please provide a valid subcommand either `add`, `delete` or `view`")
@@ -14,6 +15,7 @@ class Prefixes(commands.Cog):
         embed = discord.Embed(color=self.client.color, title="Showing prefixes", description='\n'.join(formattedPrefixes))
         await ctx.send(embed=embed)
     @prefixes.command(name="add", description="Add a server prefix", aliases=["create"])
+    @commands.has_permissions(manage_messages = True)
     async def add(self, ctx, *, prefix = None):
         prefixes = self.client.cache["prefixes"][str(ctx.message.guild.id)]
         guildData = self.client._guilds.find_one({"guild": str(ctx.message.guild.id)})
@@ -26,6 +28,7 @@ class Prefixes(commands.Cog):
         self.client.cache["prefixes"][str(ctx.message.guild.id)] = self.client._guilds.find_one({"guild": str(ctx.message.guild.id)})["prefixes"]
         await ctx.send("Prefix added!")
     @prefixes.command(name="remove", description="Remove a server prefix", aliases=["delete"])
+    @commands.has_permissions(manage_messages = True)
     async def add(self, ctx, *, prefix = None):
         prefixes = self.client.cache["prefixes"][str(ctx.message.guild.id)]
         guildData = self.client._guilds.find_one({"guild": str(ctx.message.guild.id)})

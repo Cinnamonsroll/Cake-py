@@ -13,4 +13,6 @@ async def prefixes(client, message):
                 guild = client._guilds.find_one({"guild": str(message.guild.id)})
             client.cache["prefixes"][str(message.guild.id)] = guild["prefixes"]
             return commands.when_mentioned_or(*client.cache["prefixes"][str(message.guild.id)])(client, message)
+    else: 
+        return commands.when_mentioned_or(*["c~"])(client, message)
         
